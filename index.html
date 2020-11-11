@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    	Validar con input en javaScript
+    </title>
+    
+    <style>
+        #contenedor {
+            width: 50%;
+            padding:20px;
+            border: 2px solid black;
+            background-color: #fafafa;
+            margin:auto;
+        }
+    </style>
+    <script>
+        function validar (){
+            dato= document.getElementById("dato").value;
+            resultado = document.getElementById("resultado");
+            if (dato == ""){
+                resultado.innerText = "No existe cadena de caracteres para evaluar";
+            }else{
+                if (esNumero (dato)){
+                    resultado.innerText = ("La cadena de caracteres es NUMÉRICA: " + parseFloat(dato).toFixed(2));
+                }else{
+                    resultado.innerText = ("La cadena de caracteres es ALFANUMERICA");
+                }
+            }
+        }
+        function esNumero (dato){
+            /*Definición de los valores aceptados*/
+            var valoresAceptados = /^[0-9]+$/;
+            if (dato.indexOf(".") === -1 ){
+                if (dato.match(valoresAceptados)){
+                   return true;
+                }else{
+                   return false;
+                }
+            }else{
+                //dividir la expresión por el punto en un array
+                var particion = dato.split(".");
+                //evaluamos la primera parte de la división (parte entera)
+                if (particion[0].match(valoresAceptados) || particion[0]==""){
+                    if (particion[1].match(valoresAceptados)){
+                        return true;
+                    }else {
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="contenedor">
+            <label for="">Expresión a validar</label>
+            <input type="text" id="dato" size="10" value="">
+            <p>
+                <button id="boton" onclick="validar()">Evaluar</button>
+            </p>
+            <p id="resultado">Resultado</p>
+    </div>
+</body>
+</html>
